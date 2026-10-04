@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Boutique Stay | Rooms, Amenities &amp; Gallery</title>
+<meta name="description" content="A quiet boutique stay. Browse rooms, amenities and photos, then enquire by email or WhatsApp.">
+<meta property="og:title" content="Boutique Stay">
+<meta property="og:description" content="A quiet stay, beautifully considered. Enquire by email or WhatsApp.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://images.unsplash.com">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ===== 1. TOKENS ===== */
+:root{--bg:#fff;--ink:#171717;--mute:#6F6F6F;--line:#E8E8E8;--accent:#B69A7A;--soft:#F5F1EB;
+--serif:"Cormorant Garamond",Georgia,serif;--sans:Inter,system-ui,sans-serif;--pad:clamp(20px,5vw,72px)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{font-family:var(--sans);color:var(--ink);background:var(--bg);line-height:1.7;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+h1,h2,h3{font-family:var(--serif);font-weight:500;line-height:1.1}
+h2{font-size:clamp(34px,5vw,60px);margin-bottom:20px}
+h3{font-size:30px;margin-bottom:10px}
+.wrap{max-width:1280px;margin:0 auto;padding:0 var(--pad)}
+section{padding:clamp(64px,9vw,120px) 0}
+.label{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:18px;display:block}
+.lead{color:var(--mute);max-width:520px}
+.ph{background:linear-gradient(135deg,#EFE8DE,#DDD2C3)} /* fallback behind every image */
+.ph img{width:100%;height:100%;object-fit:cover}
+.sr{position:absolute;left:-9999px}
+
+/* ===== 2. BUTTONS ===== */
+.btn{display:inline-flex;align-items:center;gap:10px;padding:15px 28px;font:500 12px var(--sans);letter-spacing:.16em;text-transform:uppercase;border:1px solid var(--ink);background:var(--ink);color:#fff;cursor:pointer;transition:.3s}
+.btn:hover{background:var(--accent);border-color:var(--accent)}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn.ghost:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+.btn.light{background:transparent;color:#fff;border-color:#fff}
+.btn.light:hover{background:#fff;color:var(--ink)}
+.btn.white{background:#fff;color:var(--ink);border-color:#fff}
+.btn.white:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+.arrow{transition:transform .3s}.btn:hover .arrow,.card:hover .arrow{transform:translateX(5px)}
+
+/* ===== 3. NAV ===== */
+header{position:fixed;inset:0 0 auto;z-index:50;color:#fff;transition:background .35s,color .35s,border-color .35s;border-bottom:1px solid transparent}
+header.solid{background:#fff;color:var(--ink);border-color:var(--line)}
+.bar{display:flex;align-items:center;justify-content:space-between;height:72px;gap:20px}
+.logo{font-family:var(--serif);font-size:22px;letter-spacing:.2em;line-height:1;text-transform:uppercase}
+.logo small{display:block;font:400 9px var(--sans);letter-spacing:.35em;opacity:.8;margin-top:5px}
+nav ul{display:flex;gap:34px;list-style:none}
+nav a{font-size:12px;letter-spacing:.16em;text-transform:uppercase;position:relative;padding:6px 0}
+nav a::after{content:"";position:absolute;left:0;bottom:0;height:1px;width:0;background:currentColor;transition:width .3s}
+nav a:hover::after{width:100%}
+.nav-cta{display:flex;gap:10px;align-items:center}
+.nav-cta .btn{padding:11px 18px}
+header:not(.solid) .nav-cta .btn.ghost{color:#fff;border-color:#fff}
+.burger{display:none;background:none;border:0;color:inherit;width:44px;height:44px;cursor:pointer}
+.burger span{display:block;width:24px;height:1.5px;background:currentColor;margin:6px auto;transition:.3s}
+.menu-open .burger span:first-child{transform:translateY(3.7px) rotate(45deg)}
+.menu-open .burger span:last-child{transform:translateY(-3.7px) rotate(-45deg)}
+.mobile{display:none}
+
+/* ===== 4. HERO ===== */
+.hero{position:relative;height:100vh;height:100svh;min-height:560px;padding:0;color:#fff;display:flex;align-items:center;overflow:hidden;background:#2a2622}
+.slide{position:absolute;inset:0;opacity:0;transition:opacity 1.6s ease}
+.slide.on{opacity:1}
+.slide img{width:100%;height:100%;object-fit:cover;transform:scale(1);transition:transform 8s linear}
+.slide.on img{transform:scale(1.07)}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(rgba(0,0,0,.42),rgba(0,0,0,.28) 50%,rgba(0,0,0,.5))}
+.hero .wrap{position:relative;z-index:2;width:100%}
+.hero .kicker{font-size:12px;letter-spacing:.35em;text-transform:uppercase;margin-bottom:24px}
+.hero h1{font-size:clamp(46px,8vw,110px);font-weight:400;margin-bottom:22px}
+.hero p{letter-spacing:.2em;font-size:13px;text-transform:uppercase;margin-bottom:40px}
+.hero .btns{display:flex;flex-wrap:wrap;gap:14px}
+.scroll{position:absolute;z-index:2;bottom:28px;left:50%;transform:translateX(-50%);font-size:11px;letter-spacing:.25em;text-transform:uppercase;white-space:nowrap}
+
+/* ===== 5. LAYOUT BLOCKS ===== */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,6vw,96px);align-items:center}
+.split .ph{aspect-ratio:4/5}
+.head{margin-bottom:56px}
+.rooms{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+.card .ph{aspect-ratio:4/3;overflow:hidden;margin-bottom:22px}
+.card .ph img{transition:transform .8s}.card:hover .ph img{transform:scale(1.05)}
+.card p{color:var(--mute);font-size:15px}
+.meta{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:6px 16px;margin:18px 0;padding:16px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);font-size:13px;color:var(--mute)}
+.meta b{color:var(--ink);font-weight:500}
+.rate{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+.row{display:flex;flex-wrap:wrap;gap:10px}
+.row .btn{padding:12px 20px}
+.alt{background:var(--soft)}
+.amen{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);border-left:1px solid var(--line)}
+.amen div{padding:36px 28px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);background:#fff}
+.amen svg{width:34px;height:34px;stroke:var(--accent);fill:none;stroke-width:1.2;margin-bottom:16px}
+.amen h3{font:500 15px var(--sans);margin-bottom:4px}
+.amen p{font-size:13px;color:var(--mute)}
+.stay{padding:0;position:relative;min-height:70vh;display:flex;align-items:center;color:#fff}
+.stay .bgimg{position:absolute;inset:0}
+.stay::after{content:"";position:absolute;inset:0;background:rgba(0,0,0,.42)}
+.stay .wrap{position:relative;z-index:2;padding-top:90px;padding-bottom:90px}
+.stay h2{max-width:640px}.stay p{max-width:480px;opacity:.92}
+.pricing{border:1px solid var(--line);padding:clamp(28px,5vw,56px);text-align:center;margin-top:56px}
+.pricing p{color:var(--mute);margin-bottom:24px}
+
+/* gallery */
+.filters{display:flex;flex-wrap:wrap;gap:8px 28px;margin-bottom:40px;border-bottom:1px solid var(--line)}
+.filters button{background:none;border:0;padding:0 0 14px;font:500 12px var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--mute);cursor:pointer;border-bottom:1px solid transparent;margin-bottom:-1px;transition:.3s}
+.filters button:hover{color:var(--ink)}
+.filters button.on{color:var(--ink);border-color:var(--accent)}
+.gal{columns:3;column-gap:20px}
+.gal button{position:relative;display:block;width:100%;margin:0 0 20px;border:0;padding:0;cursor:zoom-in;break-inside:avoid;overflow:hidden;animation:fi .6s}
+.gal button[hidden]{display:none}
+.gal button img{width:100%;height:100%;object-fit:cover;transition:transform .9s}
+.gal button:hover img,.gal button:focus-visible img{transform:scale(1.06)}
+.gal .t{aspect-ratio:3/4}.gal .w{aspect-ratio:4/3}.gal .s{aspect-ratio:1}
+.ov{position:absolute;inset:auto 0 0 0;padding:70px 20px 18px;text-align:left;color:#fff;background:linear-gradient(transparent,rgba(0,0,0,.68));opacity:0;transform:translateY(10px);transition:.4s}
+.ov i{display:block;font:normal 10px var(--sans);letter-spacing:.24em;text-transform:uppercase;opacity:.85}
+.ov b{display:block;font:500 24px var(--serif);margin-top:2px}
+.gal button:hover .ov,.gal button:focus-visible .ov{opacity:1;transform:none}
+@media(hover:none){.ov{opacity:1;transform:none}}
+@keyframes fi{from{opacity:0;transform:translateY(12px)}}
+.lb{padding:56px 64px 60px}
+.lb figure{width:100%;max-width:1000px;max-height:100%;display:flex;flex-direction:column;align-items:center}
+.lb figure img{max-height:calc(100vh - 290px);max-height:calc(100svh - 290px);width:auto;max-width:100%}
+.lb figcaption{width:100%;display:grid;grid-template-columns:1fr 1.4fr;gap:12px 40px;padding-top:20px;color:#fff;text-align:left}
+.lb .cat{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--accent)}
+.lb .ttl{font-size:34px;margin:4px 0 0;color:#fff}
+.lb .dsc{color:#cfcfcf;font-size:15px;margin-bottom:14px}
+.lb .enq{padding:11px 18px;font-size:11px}
+
+/* contact */
+.info{list-style:none;margin:32px 0}
+.info li{padding:16px 0;border-top:1px solid var(--line)}
+.info li:last-child{border-bottom:1px solid var(--line)}
+.info span{display:block;font-size:11px;letter-spacing:.2em;color:var(--accent);text-transform:uppercase}
+.map{aspect-ratio:4/3;border:1px solid var(--line);display:grid;place-items:center;text-align:center;padding:24px;color:var(--mute);font-size:14px;margin-top:32px}
+.map{position:relative;overflow:hidden;min-height:340px}
+.map iframe{width:100%;height:100%;min-height:340px;border:0;display:block}
+.mapbadge{position:absolute;z-index:2;left:12px;bottom:12px;background:#fff;border:1px solid var(--line);padding:8px 12px;font-size:11px;letter-spacing:.06em;color:var(--mute);pointer-events:none}
+form{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+form .full{grid-column:1/-1}
+label{display:block;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--mute);margin-bottom:6px}
+input,select,textarea{width:100%;padding:13px 14px;border:1px solid var(--line);font:15px var(--sans);color:var(--ink);background:#fff;border-radius:0}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent)}
+.note{font-size:12px;color:var(--mute)}
+.cta{background:var(--soft);text-align:center}
+.cta .row{justify-content:center;margin-top:28px}.cta .lead{margin:0 auto}
+.maplink{display:inline-block;margin-top:12px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;border-bottom:1px solid var(--accent);padding-bottom:2px}
+.map-wrap{margin-top:clamp(48px,6vw,80px)}
+.map-wrap .map{margin-top:0;padding:0;aspect-ratio:auto;height:clamp(320px,42vw,520px);width:100%}
+.map-wrap .map iframe{height:100%}
+.map-wrap{position:relative}
+.mapsearch{position:absolute;z-index:3;top:12px;right:12px;display:flex;width:min(380px,calc(100% - 24px));background:#fff;border:1px solid var(--line);box-shadow:0 2px 10px rgba(0,0,0,.08)}
+.mapsearch input{border:0;flex:1;min-width:0;padding:12px 14px}
+.mapsearch button{border:0;background:var(--ink);color:#fff;padding:0 18px;font:500 11px var(--sans);letter-spacing:.14em;text-transform:uppercase;cursor:pointer;transition:background .3s}
+.mapsearch button:hover{background:var(--accent)}
+.maptip{margin-top:10px}.maptip button{background:none;border:0;border-bottom:1px solid var(--accent);color:var(--ink);cursor:pointer;font:inherit;margin-left:6px}
+@media(max-width:560px){.mapsearch{position:static;width:100%;margin-bottom:10px}}
+footer{background:#171717;color:#cfcfcf;padding:80px 0 0;font-size:14px}
+.fgrid{display:grid;grid-template-columns:1.6fr 1fr 1.2fr 1.2fr;gap:48px;padding-bottom:56px}
+footer .logo{color:#fff;display:inline-block;margin-bottom:18px}
+footer p{color:#9a9a9a;max-width:300px}
+footer h4{font:500 11px var(--sans);letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+footer ul{list-style:none;display:grid;gap:10px}
+footer a{transition:color .25s}footer a:hover{color:#fff}
+footer .btn{margin-top:18px;padding:12px 20px;font-size:11px}
+.fbar{border-top:1px solid #2c2c2c;padding:22px 0;display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;font-size:12px;color:#8a8a8a}
+
+/* lightbox */
+.lb{position:fixed;inset:0;z-index:100;background:rgba(10,10,10,.94);display:none;align-items:center;justify-content:center;padding:60px 56px}
+.lb.open{display:flex}
+.lb img{max-height:100%;max-width:100%;object-fit:contain}
+.lb button{position:absolute;background:none;border:1px solid rgba(255,255,255,.35);color:#fff;width:46px;height:46px;font-size:22px;cursor:pointer;transition:.2s}
+.lb button:hover{background:#fff;color:#000}
+.lb .x{top:14px;right:14px}.lb .p{left:8px;top:50%}.lb .n{right:8px;top:50%}
+.lb .c{position:absolute;bottom:18px;left:0;right:0;text-align:center;color:#fff;font-size:12px;letter-spacing:.2em}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(24px);transition:opacity .9s,transform .9s}
+.rv.in{opacity:1;transform:none}
+
+/* ===== 6. RESPONSIVE ===== */
+@media(max-width:1024px){
+ nav,.nav-cta .wa{display:none}.burger{display:block}
+ .rooms{grid-template-columns:1fr 1fr}.amen{grid-template-columns:repeat(2,1fr)}.gal{columns:2}
+ .fgrid{grid-template-columns:1fr 1fr}
+ .mobile{display:flex;flex-direction:column;justify-content:center;gap:8px;position:fixed;inset:0;background:#fff;color:var(--ink);padding:100px var(--pad) 40px;transform:translateY(-100%);transition:transform .45s;z-index:-1;visibility:hidden}
+ .menu-open .mobile{transform:none;visibility:visible}
+ .menu-open{background:#fff;color:var(--ink)}
+ .mobile a.l{font:500 40px var(--serif);padding:6px 0}
+ .mobile .row{margin-top:24px}
+}
+@media(max-width:768px){
+ .split,form{grid-template-columns:1fr}.split .ph{aspect-ratio:4/3}
+ .rooms{grid-template-columns:1fr}
+ .scroll{display:none}.nav-cta .book{display:none}
+ .lb{padding:56px 10px 72px}.lb figcaption{grid-template-columns:1fr;gap:6px}.lb .ttl{font-size:26px}.lb figure img{max-height:calc(100vh - 370px);max-height:calc(100svh - 370px)}.lb .p,.lb .n{top:auto;bottom:10px}
+}
+@media(max-width:560px){.fgrid{grid-template-columns:1fr;gap:36px}footer{padding-top:56px}}
+@media(max-width:480px){.amen div{padding:24px 16px}.gal{columns:1}.hero .btn{width:100%;justify-content:center}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<!-- ================= HEADER / NAV ================= -->
+<header id="top">
+ <div class="wrap bar">
+  <a href="#home" class="logo" aria-label="Home"><span data-site="name">Property Name</span><small>Boutique Stay</small></a>
+  <nav aria-label="Main"><ul>
+   <li><a href="#home">Home</a></li><li><a href="#rooms">Rooms</a></li><li><a href="#amenities">Amenities</a></li><li><a href="#gallery">Gallery</a></li><li><a href="#contact">Contact</a></li>
+  </ul></nav>
+  <div class="nav-cta">
+   <a class="btn ghost wa" data-wa href="#" target="_blank" rel="noopener">WhatsApp</a>
+   <a class="btn white book" data-book href="#contact">Book Now</a>
+   <button class="burger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile"><span></span><span></span></button>
+  </div>
+ </div>
+ <div class="mobile" id="mobile">
+  <a class="l" href="#home">Home</a><a class="l" href="#rooms">Rooms</a><a class="l" href="#amenities">Amenities</a><a class="l" href="#gallery">Gallery</a><a class="l" href="#contact">Contact</a>
+  <div class="row"><a class="btn" data-book href="#contact">Book Now</a><a class="btn ghost" data-wa href="#" target="_blank" rel="noopener">WhatsApp</a></div>
+ </div>
+</header>
+
+<main>
+<!-- ================= HERO ================= -->
+<section class="hero" id="home" aria-label="Welcome">
+ <div class="slide on ph"><img data-i="h1" alt="Elegant boutique property exterior" fetchpriority="high"></div>
+ <div class="slide ph"><img data-i="h2" alt="Calm bedroom with natural light" loading="lazy"></div>
+ <div class="slide ph"><img data-i="h3" alt="Warm, comfortable living area" loading="lazy"></div>
+ <div class="slide ph"><img data-i="h4" alt="Clean modern bathroom" loading="lazy"></div>
+ <div class="slide ph"><img data-i="h5" alt="Relaxing outdoor space" loading="lazy"></div>
+ <div class="wrap">
+  <div class="kicker" data-site="name">Property Name</div>
+  <h1>A Quiet Stay,<br>Beautifully Considered.</h1>
+  <p>Comfort &bull; Privacy &bull; Location</p>
+  <div class="btns"><a class="btn white" data-book href="#contact">Book Your Stay <span class="arrow">&rarr;</span></a><a class="btn light" data-wa href="#" target="_blank" rel="noopener">WhatsApp Us</a></div>
+ </div>
+ <a class="scroll" href="#welcome">Scroll to explore &darr;</a>
+</section>
+
+<!-- ================= INTRO ================= -->
+<section id="welcome"><div class="wrap split">
+ <div class="rv">
+  <span class="label">Welcome</span>
+  <h2>A quiet place to stay,<br>designed around comfort.</h2>
+  <p class="lead">Replace this text with a short introduction to your property. Simple spaces, calm surroundings and attentive hospitality, so every guest can rest properly.</p>
+ </div>
+ <div class="ph rv"><img data-i="g3" alt="Light-filled interior with soft furnishings" loading="lazy"></div>
+</div></section>
+
+<!-- ================= ROOMS ================= -->
+<section id="rooms" class="alt"><div class="wrap">
+ <div class="head rv"><span class="label">Our Rooms</span><h2>Thoughtfully designed spaces<br>for a comfortable stay.</h2></div>
+ <div class="rooms">
+  <!-- Edit room name, text and details below. Duplicate an <article> to add a room. -->
+  <article class="card rv">
+   <div class="ph"><img data-i="r1" alt="Deluxe room with double bed" loading="lazy"></div>
+   <h3>Deluxe Room</h3><p>A calm, well-appointed room for a restful stay. Description to be updated.</p>
+   <ul class="meta"><li><b>Guests:</b> [Capacity]</li><li><b>Bed:</b> [Bed type]</li><li><b>Size:</b> [Size]</li><li><b>Includes:</b> [Amenities]</li></ul>
+   <div class="rate">Rates available on request</div>
+   <div class="row"><a class="btn ghost" href="#room-details">View Room <span class="arrow">&rarr;</span></a><a class="btn" data-book href="#contact">Book Now</a></div>
+  </article>
+  <article class="card rv">
+   <div class="ph"><img data-i="r2" alt="Superior room with soft neutral tones" loading="lazy"></div>
+   <h3>Superior Room</h3><p>A bright, generous space with thoughtful details. Description to be updated.</p>
+   <ul class="meta"><li><b>Guests:</b> [Capacity]</li><li><b>Bed:</b> [Bed type]</li><li><b>Size:</b> [Size]</li><li><b>Includes:</b> [Amenities]</li></ul>
+   <div class="rate">Check availability</div>
+   <div class="row"><a class="btn ghost" href="#room-details">View Room <span class="arrow">&rarr;</span></a><a class="btn" data-book href="#contact">Book Now</a></div>
+  </article>
+  <article class="card rv">
+   <div class="ph"><img data-i="r3" alt="Premium room with refined styling" loading="lazy"></div>
+   <h3>Premium Room</h3><p>Our most spacious option for a longer, slower stay. Description to be updated.</p>
+   <ul class="meta"><li><b>Guests:</b> [Capacity]</li><li><b>Bed:</b> [Bed type]</li><li><b>Size:</b> [Size]</li><li><b>Includes:</b> [Amenities]</li></ul>
+   <div class="rate">Rates available on request</div>
+   <div class="row"><a class="btn ghost" href="#room-details">View Room <span class="arrow">&rarr;</span></a><a class="btn" data-book href="#contact">Book Now</a></div>
+  </article>
+ </div>
+ <div class="pricing rv" id="room-details">
+  <span class="label">Room Rates</span><h3>Pricing information will be added here.</h3>
+  <p>Replace this block with your rate table when ready.</p>
+  <a class="btn" data-book href="#contact">Check Availability</a>
+ </div>
+</div></section>
+
+<!-- ================= AMENITIES ================= -->
+<section id="amenities"><div class="wrap">
+ <div class="head rv"><span class="label">Amenities</span><h2>Everything for an easy stay.</h2><p class="lead">Placeholder list. Edit or remove items to match what you actually offer.</p></div>
+ <div class="amen rv">
+  <div><svg viewBox="0 0 24 24"><path d="M5 12.5a10 10 0 0 1 14 0M8 15.5a6 6 0 0 1 8 0M11 18.5a2 2 0 0 1 2 0"/><circle cx="12" cy="20" r=".6"/></svg><h3>Free Wi-Fi</h3><p>[Edit to confirm]</p></div>
+  <div><svg viewBox="0 0 24 24"><path d="M12 3v18M4 7.5l16 9M4 16.5l16-9"/></svg><h3>Air Conditioning</h3><p>[Edit to confirm]</p></div>
+  <div><svg viewBox="0 0 24 24"><path d="M4 12h16v2a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5zM7 12V6a2 2 0 0 1 4 0"/></svg><h3>Private Bathroom</h3><p>[Edit to confirm]</p></div>
+  <div><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="12" rx="1"/><path d="M9 21h6M12 17v4"/></svg><h3>Smart TV</h3><p>[Edit to confirm]</p></div>
+  <div><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="1"/><path d="M9 17V8h4a2.5 2.5 0 0 1 0 5H9"/></svg><h3>Parking</h3><p>[Edit to confirm]</p></div>
+  <div><svg viewBox="0 0 24 24"><path d="M5 10h12v4a5 5 0 0 1-5 5h-2a5 5 0 0 1-5-5zM17 11h2a2 2 0 0 1 0 4h-2M9 3v3M13 3v3"/></svg><h3>Breakfast</h3><p>[Edit to confirm]</p></div>
+  <div><svg viewBox="0 0 24 24"><path d="M3 20h18M5 20V9l7-5 7 5v11M10 20v-6h4v6"/></svg><h3>Housekeeping</h3><p>[Edit to confirm]</p></div>
+  <div><svg viewBox="0 0 24 24"><path d="M12 21v-9M12 12c-4 0-6-3-6-7 4 0 6 3 6 7zM12 14c3 0 5-2 5-5-3 0-5 2-5 5z"/></svg><h3>Garden / Outdoor</h3><p>[Edit to confirm]</p></div>
+ </div>
+</div></section>
+
+<!-- ================= THE STAY ================= -->
+<section class="stay"><div class="bgimg ph"><img data-i="g5" alt="Peaceful outdoor setting at a boutique stay" loading="lazy"></div>
+ <div class="wrap rv"><span class="label" style="color:#fff">The Stay</span><h2>A stay designed around you.</h2><p>Comfort, simplicity and room to breathe. Thoughtful spaces that let you slow down and truly relax.</p></div>
+</section>
+
+<!-- ================= GALLERY ================= -->
+<section id="gallery"><div class="wrap">
+ <div class="head rv"><span class="label">Gallery</span><h2>A look inside.</h2><p class="lead">Sample photos and descriptions. Filter by category, then click any image to see its details.</p></div>
+ <div class="filters rv" role="group" aria-label="Filter gallery by category">
+  <button class="on" data-f="all" aria-pressed="true">All</button>
+  <button data-f="Rooms" aria-pressed="false">Rooms</button>
+  <button data-f="Interiors" aria-pressed="false">Interiors</button>
+  <button data-f="Exterior" aria-pressed="false">Exterior</button>
+  <button data-f="Outdoor" aria-pressed="false">Outdoor</button>
+ </div>
+ <!-- Each photo: edit data-cat (category), data-title and data-desc (shown in the viewer). Photo itself is set in IMAGES (g1-g12). -->
+ <div class="gal" id="gal">
+  <button class="t ph" data-cat="Exterior" data-title="Property Exterior" data-desc="A welcoming first impression. Replace this sample photo and text with your own exterior view." aria-label="View Property Exterior"><img data-i="g1" alt="Property Exterior" loading="lazy"><span class="ov"><i>Exterior</i><b>Property Exterior</b></span></button>
+  <button class="w ph" data-cat="Rooms" data-title="Bedroom" data-desc="Soft linens and natural light. Replace with your own room photo and description." aria-label="View Bedroom"><img data-i="g2" alt="Bedroom" loading="lazy"><span class="ov"><i>Rooms</i><b>Bedroom</b></span></button>
+  <button class="s ph" data-cat="Interiors" data-title="Living Space" data-desc="A relaxed space to unwind. Add your own description of the shared areas here." aria-label="View Living Space"><img data-i="g3" alt="Living Space" loading="lazy"><span class="ov"><i>Interiors</i><b>Living Space</b></span></button>
+  <button class="w ph" data-cat="Rooms" data-title="Bathroom" data-desc="Clean, simple and comfortable. Replace with details of your bathrooms." aria-label="View Bathroom"><img data-i="g4" alt="Bathroom" loading="lazy"><span class="ov"><i>Rooms</i><b>Bathroom</b></span></button>
+  <button class="t ph" data-cat="Outdoor" data-title="Outdoor Space" data-desc="Fresh air and a calm outlook. Describe your garden or outdoor area here." aria-label="View Outdoor Space"><img data-i="g5" alt="Outdoor Space" loading="lazy"><span class="ov"><i>Outdoor</i><b>Outdoor Space</b></span></button>
+  <button class="s ph" data-cat="Rooms" data-title="Bedroom Detail" data-desc="Small details that add to the comfort. Edit this text to match your room." aria-label="View Bedroom Detail"><img data-i="g6" alt="Bedroom Detail" loading="lazy"><span class="ov"><i>Rooms</i><b>Bedroom Detail</b></span></button>
+  <button class="w ph" data-cat="Outdoor" data-title="Outdoor Leisure Area" data-desc="A place to slow down. Replace with your own photo and wording." aria-label="View Outdoor Leisure Area"><img data-i="g7" alt="Outdoor Leisure Area" loading="lazy"><span class="ov"><i>Outdoor</i><b>Outdoor Leisure Area</b></span></button>
+  <button class="t ph" data-cat="Rooms" data-title="Guest Room" data-desc="A calm room for a restful night. Add room-specific details here." aria-label="View Guest Room"><img data-i="g8" alt="Guest Room" loading="lazy"><span class="ov"><i>Rooms</i><b>Guest Room</b></span></button>
+  <button class="s ph" data-cat="Interiors" data-title="Seating Area" data-desc="Comfortable seating for relaxing. Edit this description." aria-label="View Seating Area"><img data-i="g9" alt="Seating Area" loading="lazy"><span class="ov"><i>Interiors</i><b>Seating Area</b></span></button>
+  <button class="w ph" data-cat="Exterior" data-title="Building at Dusk" data-desc="The property in the evening light. Replace with your own photo." aria-label="View Building at Dusk"><img data-i="g10" alt="Building at Dusk" loading="lazy"><span class="ov"><i>Exterior</i><b>Building at Dusk</b></span></button>
+  <button class="s ph" data-cat="Rooms" data-title="Bathroom Detail" data-desc="Natural finishes and good light. Edit to match your bathroom." aria-label="View Bathroom Detail"><img data-i="g11" alt="Bathroom Detail" loading="lazy"><span class="ov"><i>Rooms</i><b>Bathroom Detail</b></span></button>
+  <button class="t ph" data-cat="Interiors" data-title="Lounge" data-desc="A quiet corner to read or rest. Replace with your own description." aria-label="View Lounge"><img data-i="g12" alt="Lounge" loading="lazy"><span class="ov"><i>Interiors</i><b>Lounge</b></span></button>
+ </div>
+</div></section>
+
+<!-- ================= CONTACT ================= -->
+<section id="contact" class="alt"><div class="wrap"><div class="split" style="align-items:start">
+ <div class="rv">
+  <span class="label">Find Your Way Here</span>
+  <h2>Let's plan your stay.</h2>
+  <ul class="info">
+   <li><span>Email</span><a data-mail href="#" data-site="email">[Email]</a></li>
+   <li><span>WhatsApp</span><a data-wa href="#" target="_blank" rel="noopener" data-site="whatsapp">[WhatsApp number]</a></li>
+   <li><span>Address</span><div data-site="address">[Property address]</div></li>
+  </ul>
+  <a class="btn" data-wa href="#" target="_blank" rel="noopener">WhatsApp Direct Message</a>
+ </div>
+ <form id="enq" class="rv" novalidate>
+  <div><label for="n">Name</label><input id="n" required autocomplete="name"></div>
+  <div><label for="e">Email</label><input id="e" type="email" required autocomplete="email"></div>
+  <div><label for="ci">Check-in</label><input id="ci" type="date"></div>
+  <div><label for="co">Check-out</label><input id="co" type="date"></div>
+  <div><label for="g">Guests</label><input id="g" type="number" min="1" value="2"></div>
+  <div><label for="r">Room</label><select id="r"><option>No preference</option><option>Deluxe Room</option><option>Superior Room</option><option>Premium Room</option></select></div>
+  <div class="full"><label for="m">Message</label><textarea id="m" rows="5"></textarea></div>
+  <div class="full"><button class="btn" type="submit">Send Enquiry</button></div>
+  <p class="note full" id="fmsg" role="status">This opens your email app with the enquiry ready to send.</p>
+ </form>
+ </div>
+ <!-- MAP (full width): filled automatically from SITE_CONFIG (mapEmbedUrl or address) in the script at the bottom -->
+ <div class="map-wrap rv">
+  <form class="mapsearch" id="mapsearch" role="search">
+   <label class="sr" for="mapq">Search a location on the map</label>
+   <input id="mapq" type="search" placeholder="Search place or address" autocomplete="off">
+   <button type="submit">Search</button>
+  </form>
+  <div class="map" id="map">Add your address in SITE_CONFIG to show the map here.</div>
+  <a class="maplink" id="maplink" href="#" target="_blank" rel="noopener" hidden>Open in Google Maps &rarr;</a>
+  <p class="maptip note" id="maptip" hidden>Location set for this browser only. To make it permanent for all visitors, paste it into SITE_CONFIG. <button type="button" id="mapcopy">Copy address line</button></p>
+ </div>
+</div></section>
+
+<!-- ================= FINAL CTA ================= -->
+<section class="cta"><div class="wrap rv">
+ <h2>Ready to stay with us?</h2><p class="lead">Send us your dates and we will happily help you plan.</p>
+ <div class="row"><a class="btn" data-book href="#contact">Book Your Stay</a><a class="btn ghost" data-wa href="#" target="_blank" rel="noopener">WhatsApp Us</a></div>
+</div></section>
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+ <div class="wrap">
+  <div class="fgrid">
+   <div>
+    <a href="#home" class="logo" aria-label="Back to top"><span data-site="name">Property Name</span><small>Boutique Stay</small></a>
+    <p>A quiet stay, beautifully considered. Short tagline or welcome line goes here.</p>
+   </div>
+   <nav aria-label="Footer">
+    <h4>Explore</h4>
+    <ul><li><a href="#home">Home</a></li><li><a href="#rooms">Rooms</a></li><li><a href="#amenities">Amenities</a></li><li><a href="#gallery">Gallery</a></li><li><a href="#contact">Contact</a></li></ul>
+   </nav>
+   <div>
+    <h4>Contact</h4>
+    <ul>
+     <li><a data-mail href="#" data-site="email">[Email]</a></li>
+     <li><a data-wa href="#" target="_blank" rel="noopener" data-site="whatsapp">[WhatsApp number]</a></li>
+     <li data-site="address">[Property address]</li>
+    </ul>
+   </div>
+   <div>
+    <h4>Plan Your Stay</h4>
+    <p>Send your dates and we will help you choose the right room.</p>
+    <a class="btn white" data-book href="#contact">Book Now</a>
+   </div>
+  </div>
+  <div class="fbar">
+   <span>&copy; <span id="yr"></span> <span data-site="name">Property Name</span>. All rights reserved.</span>
+   <a href="#top">Back to top &uarr;</a>
+  </div>
+ </div>
+</footer>
+
+<!-- ================= LIGHTBOX ================= -->
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Image viewer">
+ <button class="x" aria-label="Close">&times;</button><button class="p" aria-label="Previous image">&#8249;</button>
+ <figure><img alt=""><figcaption><div><span class="cat"></span><h3 class="ttl"></h3></div><div><p class="dsc"></p><a class="btn white enq" href="#contact">Enquire about this</a></div></figcaption></figure><button class="n" aria-label="Next image">&#8250;</button><div class="c" aria-live="polite"></div>
+</div>
+
+<script>
+/* ==========================================================
+   EDIT HERE: all business info + all images live in this block
+   ========================================================== */
+const SITE_CONFIG = {
+  propertyName: "PROPERTY NAME",
+  email: "REPLACE_WITH_CLIENT_EMAIL",          // e.g. hello@yourdomain.com
+  whatsapp: "REPLACE_WITH_CLIENT_NUMBER",      // digits only with country code, e.g. 8801XXXXXXXXX
+  address: "PROPERTY ADDRESS",
+  /* MAP: easiest way = put your real address above, the map appears automatically.
+     Or paste the src="..." link from Google Maps > Share > Embed a map into mapEmbedUrl (this wins if filled). */
+  mapEmbedUrl: "",
+  showMapSearch: true,   // the search bar on the map is for setup. Set to false before going live.
+  waMessage: "Hello, I would like to enquire about staying at your property."
+};
+/* Image library. Replace any URL with your own, e.g. "images/room1.webp".
+   These are royalty-free Unsplash placeholders: open each in a browser once to confirm it loads. */
+const U = id => "https://images.unsplash.com/photo-" + id + "?auto=format&fit=crop&q=70&w=1600";
+const IMAGES = {
+  h1:U("1566073771259-6a8506099945"), h2:U("1611892440504-42a792e24d32"), h3:U("1493809842364-78817add7ffb"),
+  h4:U("1584132967334-10e028bd69f7"), h5:U("1520250497591-112f2f40a3f4"),
+  r1:U("1631049307264-da0ec9d70304"), r2:U("1582719478250-c89cae4dc85b"), r3:U("1618773928121-c32242e63f39"),
+  g1:U("1564013799919-ab600027ffc6"), g2:U("1540518614846-7eded433c457"), g3:U("1522708323590-d24dbb6b0267"),
+  g4:U("1578683010236-d716f9a3f461"), g5:U("1445019980597-93fa8acb246c"), g6:U("1611892440504-42a792e24d32"),
+  g7:U("1520250497591-112f2f40a3f4"), g8:U("1631049307264-da0ec9d70304"), g9:U("1493809842364-78817add7ffb"),
+  g10:U("1551882547-ff40c63fe5fa"), g11:U("1584132967334-10e028bd69f7"), g12:U("1582719478250-c89cae4dc85b")
+};
+/* ========================== END EDIT ======================= */
+
+const $=(s,c=document)=>c.querySelector(s), $$=(s,c=document)=>[...c.querySelectorAll(s)];
+const C=SITE_CONFIG, mail="mailto:"+C.email, wa="https://wa.me/"+C.whatsapp.replace(/\D/g,"")+"?text="+encodeURIComponent(C.waMessage);
+
+/* images: set src, hide the broken icon if a file fails (gradient fallback shows) */
+$$("img[data-i]").forEach(i=>{i.src=IMAGES[i.dataset.i];i.onerror=()=>{i.style.visibility="hidden"}});
+/* business info */
+$$('[data-site="name"]').forEach(e=>e.textContent=C.propertyName);
+$$('[data-site="email"]').forEach(e=>e.textContent=C.email);
+$$('[data-site="whatsapp"]').forEach(e=>e.textContent=C.whatsapp);
+$$('[data-site="address"]').forEach(e=>e.textContent=C.address);
+$$("[data-wa]").forEach(a=>a.href=wa);
+$$("[data-mail]").forEach(a=>a.href=mail);
+$("#yr").textContent=new Date().getFullYear();
+
+/* map: uses mapEmbedUrl, else the address. Shows a tidy placeholder until a real address is set */
+(()=>{const box=$("#map"),lnk=$("#maplink"),real=C.address&&C.address!=="PROPERTY ADDRESS";
+ /* No address yet: show a real Google map of the Dhaka area (no pin) as a sample view */
+ const sample="https://maps.google.com/maps?ll=23.8000,90.3500&z=13&hl=en&output=embed";
+ const src=C.mapEmbedUrl||(real?"https://www.google.com/maps?q="+encodeURIComponent(C.address)+"&output=embed":sample);
+ box.innerHTML="";box.style.display="block";
+ if(!C.mapEmbedUrl&&!real){const b=document.createElement("span");b.className="mapbadge";b.textContent="Sample map view. Property location will appear here.";box.appendChild(b)}
+ const f=document.createElement("iframe");f.src=src;f.title="Map showing "+C.propertyName+" location";f.loading="lazy";f.referrerPolicy="no-referrer-when-downgrade";f.setAttribute("allowfullscreen","");
+ box.appendChild(f);
+ if(real){lnk.href="https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(C.address);lnk.hidden=false}})();
+
+/* map search: type a place, the map jumps there (saved in this browser only) */
+(()=>{const f=$("#mapsearch");if(!f)return;
+ if(C.showMapSearch===false){f.hidden=true;return}
+ const q=$("#mapq"),box=$("#map"),lnk=$("#maplink"),tip=$("#maptip"),cp=$("#mapcopy"),KEY="stayMapQuery";let cur="";
+ const go=v=>{cur=v;let fr=$("iframe",box);if(!fr){box.innerHTML="";box.style.display="block";fr=document.createElement("iframe");fr.title="Map";box.appendChild(fr)}
+  const b=$(".mapbadge",box);if(b)b.remove();
+  fr.src="https://www.google.com/maps?q="+encodeURIComponent(v)+"&output=embed";
+  lnk.href="https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(v);lnk.hidden=false;tip.hidden=false};
+ try{const s=localStorage.getItem(KEY);if(s&&!(C.address&&C.address!=="PROPERTY ADDRESS")&&!C.mapEmbedUrl){q.value=s;go(s)}}catch(e){}
+ f.onsubmit=e=>{e.preventDefault();const v=q.value.trim();if(!v)return;go(v);try{localStorage.setItem(KEY,v)}catch(e){}};
+ cp.onclick=()=>{const t='address: "'+cur.replace(/"/g,'\\"')+'",';(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(()=>cp.textContent="Copied",()=>prompt("Copy this line:",t))};
+})();
+
+/* sticky nav colour */
+const hd=$("header"),onScroll=()=>hd.classList.toggle("solid",scrollY>60);onScroll();addEventListener("scroll",onScroll,{passive:true});
+
+/* mobile menu */
+const bg=$(".burger"),setMenu=o=>{hd.classList.toggle("menu-open",o);bg.setAttribute("aria-expanded",o);bg.setAttribute("aria-label",o?"Close menu":"Open menu");document.body.style.overflow=o?"hidden":""};
+bg.onclick=()=>setMenu(!hd.classList.contains("menu-open"));
+$$("#mobile a").forEach(a=>a.addEventListener("click",()=>setMenu(false)));
+
+/* hero slideshow: 6s, fade + slow zoom, loops */
+const slides=$$(".slide");let k=0;
+if(slides.length>1)setInterval(()=>{slides[k].classList.remove("on");k=(k+1)%slides.length;slides[k].classList.add("on")},6000);
+
+/* reveal on scroll */
+const io="IntersectionObserver"in window?new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.12}):null;
+$$(".rv").forEach(e=>io?io.observe(e):e.classList.add("in"));
+
+/* lightbox */
+const lb=$("#lb"),lbi=$("img",lb),cnt=$(".c",lb),all=$$("#gal button"),tc=$(".cat",lb),tt=$(".ttl",lb),td=$(".dsc",lb);let items=all,cur=0,opener;
+const show=n=>{cur=(n+items.length)%items.length;const b=items[cur],im=$("img",b);lbi.src=im.src;lbi.alt=im.alt;tc.textContent=b.dataset.cat;tt.textContent=b.dataset.title;td.textContent=b.dataset.desc;cnt.textContent=(cur+1)+" / "+items.length};
+const open=n=>{opener=document.activeElement;show(n);lb.classList.add("open");document.body.style.overflow="hidden";$(".x",lb).focus()};
+const close=()=>{lb.classList.remove("open");document.body.style.overflow="";opener&&opener.focus()};
+all.forEach(b=>b.onclick=()=>open(items.indexOf(b)));
+$$(".filters button").forEach(f=>f.onclick=()=>{$$(".filters button").forEach(x=>{x.classList.toggle("on",x===f);x.setAttribute("aria-pressed",x===f)});const c=f.dataset.f;all.forEach(b=>b.hidden=!(c==="all"||b.dataset.cat===c));items=all.filter(b=>!b.hidden)});
+$(".enq",lb).onclick=close;
+$(".x",lb).onclick=close;$(".p",lb).onclick=()=>show(cur-1);$(".n",lb).onclick=()=>show(cur+1);
+lb.onclick=e=>{if(e.target===lb)close()};
+addEventListener("keydown",e=>{
+ if(e.key==="Escape"){lb.classList.contains("open")?close():setMenu(false)}
+ if(!lb.classList.contains("open"))return;
+ if(e.key==="ArrowLeft")show(cur-1);if(e.key==="ArrowRight")show(cur+1)});
+let sx=0;lb.addEventListener("touchstart",e=>sx=e.touches[0].clientX,{passive:true});
+lb.addEventListener("touchend",e=>{const d=e.changedTouches[0].clientX-sx;if(Math.abs(d)>50)show(cur+(d<0?1:-1))});
+
+/* enquiry form -> opens email app (no backend) */
+$("#enq").onsubmit=e=>{e.preventDefault();
+ const v=id=>$("#"+id).value.trim();
+ if(!v("n")||!/^\S+@\S+\.\S+$/.test(v("e"))){$("#fmsg").textContent="Please enter your name and a valid email.";return}
+ const body=`Name: ${v("n")}\nEmail: ${v("e")}\nCheck-in: ${v("ci")||"-"}\nCheck-out: ${v("co")||"-"}\nGuests: ${v("g")}\nRoom: ${v("r")}\n\n${v("m")}`;
+ location.href=mail+"?subject="+encodeURIComponent("Stay enquiry from "+v("n"))+"&body="+encodeURIComponent(body);
+ $("#fmsg").textContent="Your email app should now open with the enquiry ready to send."};
+</script>
+</body>
+</html>
